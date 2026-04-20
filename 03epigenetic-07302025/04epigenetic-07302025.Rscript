@@ -1,0 +1,54 @@
+#!/usr/bin/env Rscript
+## ---------------------------
+##
+## Script name: DNAm brain
+##
+## Purpose of script: UTHealth cleaning epigenetic data
+##
+## Author: Jose Jaime Martinez Magana
+##
+## Date Created: 07302025
+##
+## ---------------------------
+# load library
+suppressPackageStartupMessages({
+  library(ENmix)
+  library(IlluminaHumanMethylationEPICmanifest)
+  library(IlluminaHumanMethylationEPICanno.ilm10b2.hg19)
+  library(parallel)
+})
+
+# setting cores
+num_threads <- detectCores() - 1
+print(num_threads)
+
+# set working directory
+wkdir="/vast/palmer/scratch/montalvo-ortiz/jjm262/00tclocks/00uthealth/00databases/05epigenome"
+setwd(wkdir)
+
+path="/gpfs/gibbs/pi/montalvo-ortiz/epigenomics/braindata/collaborations/consuelobassdata/brain_dataset/idat_brain"
+mf = "/gpfs/gibbs/pi/montalvo-ortiz/epigenomics/braindata/collaborations/consuelobassdata/brain_dataset/meta_BA9_brainbank_methylation_sub_3-29-22.csv"
+rgSet <- readidat(path = path,
+                 recursive = TRUE,
+                 force = TRUE)
+
+plotCtrl(rgSet)
+
+qc<-QCinfo(rgSet)
+#QCinfo returns "detP","nbead","bisul","badsample","badCpG","outlier_sample"
+#Samples with low quality data
+qc$badsample
+#CpGs with low quality data
+qc$badCpG
+#outlier samples
+qc$outlier_sample
+
+#Low quality samples and probes should be excluded before data preprocesssing 
+#by specifying `QCinfo` in `preprocessENmix()`
+mdat<-preprocessENmix(rgSet, QCinfo=qc, nCores=num_threads)
+
+# Normalization
+mdat<-norm.quantile(mdat, method="quantile1")
+
+# Save specific objects to an RData file
+save(mdat, file = "/vast/palmer/scratch/montalvo-ortiz/jjm262/00tclocks/00uthealth/00databases/05epigenome/00uthealth_brain-07302025.RData")
