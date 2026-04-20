@@ -17,7 +17,7 @@ This repository provides a comprehensive and reproducible framework for construc
 ```
 ├── data/                   # Input RNA-seq or processed expression matrices
 ├── 00GeneCount/            # R and bash scripts for RNASeq counts using FeatureCount with Rsubread; and Slurm job handler
-├── 01GEOcohorts            # Codes to download GEO cohorts, create matrices and perform RNAAgeCalc on this cohorts
+├── 01GEOcohorts            # Codes to download GEO cohorts, create matrices, and perform RNAAgeCalc on these cohorts
 ├── models/               # Saved models, coefficients, and retrained clocks
 ├── simulations/          # Stochastic clock simulation utilities
 ├── results/              # Output tables, metrics, and figures
