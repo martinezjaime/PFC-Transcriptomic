@@ -1,0 +1,30 @@
+#!/usr/bin/env Rscript
+## ---------------------------
+## Script name: FeatureCount with Rsubread
+## Purpose of script: Count RNASeq Data
+## Author: Jose Jaime Martinez Magana
+## Date Created: 03282025
+## ---------------------------
+# load library
+library(Rsubread)
+library(parallel)
+
+# setting cores
+nthreads = detectCores() - 1
+
+# set working directory
+wkdir="/vast/palmer/scratch/montalvo-ortiz/jjm262/00tclocks/00uthealth/00databases/03count_matrix"
+setwd(wkdir)
+
+# list all files in bam_files path
+bam_files="/gpfs/gibbs/pi/montalvo-ortiz/PTSD_Cortex_RNAseq_bam"
+files=list.files(bam_files, pattern = "\\.bam$", full.names = TRUE)
+
+# testing featureCounts
+counts = featureCounts(files=files,
+	annot.ext = "/vast/palmer/scratch/montalvo-ortiz/jjm262/00tclocks/00uthealth/00databases/04genome/Homo_sapiens.GRCh38.104.chr.gtf.gz",
+	isGTFAnnotationFile = TRUE,
+	isPairedEnd=TRUE, nthreads = nthreads)
+
+# save data
+saveRDS(file="matrix_counts_featurecounts-07252025-02.rds", counts)
