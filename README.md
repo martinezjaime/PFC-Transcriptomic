@@ -67,33 +67,6 @@ cd pfc-transcriptomic-clocks
 * Required Python packages: `pandas`, `numpy`, `scikit-learn`, `tensorflow`, `matplotlib`, `seaborn`
 * Required R packages: `RNAAgeCalc`, `glmnet`, `Seurat`, `tidyverse`
 
-## Usage
-
-### Running RNAAgeCalc
-
-```
-Rscript scripts/run_rnaagecalc.R --input data/expression.tsv --metadata data/pheno.tsv
-```
-
-### Running Stochastic Simulations
-
-```
-python scripts/run_stochastic_clock.py --n_sim 1000 --model StocH
-```
-
-### Retraining a Transcriptomic Clock
-
-```
-python scripts/retrain_clock.py --input data/expression.tsv --age data/age.tsv
-```
-
-## Outputs
-
-* **Age predictions** for each method
-* **Simulation-derived coefficients**
-* **Correlation matrices**
-* **Figures** (MAE comparisons, coefficient stability, correlation heatmaps)
-
 ## Citation
 
 If you use this repository, please cite:
@@ -105,4 +78,4 @@ Martínez-Magaña JJ et al. (2023). Decoding the role of transcriptomic clocks i
 ## Contact
 
 For questions or contributions, contact:
-**José Jaime Martínez-Magaña**
+**José Jaime Martínez-Magaña** Email: martinezmaganajjaime@gmail.com
