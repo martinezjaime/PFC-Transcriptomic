@@ -16,7 +16,7 @@ This repository provides a comprehensive and reproducible framework for construc
 
 ```
 ├── data/                 # Input RNA-seq or processed expression matrices
-├── notebooks/            # Jupyter/RMarkdown notebooks for exploratory analysis
+├── 00GeneCount/            # R and bash scripts for RNASeq counts using FeatureCount with Rsubread; and Slurm job handler
 ├── scripts/              # Core analysis scripts (Python/R)
 ├── models/               # Saved models, coefficients, and retrained clocks
 ├── simulations/          # Stochastic clock simulation utilities
